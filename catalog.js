@@ -4,7 +4,7 @@
 //  Les images sont stockées localement (base64)
 // ══════════════════════════════════════════════
 
-const API_URL = 'http://localhost:3000/api/products';
+const API_URL = '/api/products';
 
 // Images base64 par id produit
 const PRODUCT_IMAGES = {
