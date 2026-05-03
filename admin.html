@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMLOG – Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #1a1a2e;
+      --accent: #2d7dd2;
+      --bg: #f5f7fb;
+      --card: #fff;
+      --red: #e53935;
+      --green: #2e7d32;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-box {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.12);
+      text-align: center;
+    }
+    .login-box h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .login-box p { color: #888; font-size: .9rem; margin-bottom: 28px; }
+    .login-box input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-family: inherit;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .login-box input:focus { border-color: var(--accent); }
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: #1a5faa; }
+    #loginError { color: var(--red); font-size: .85rem; margin-top: 10px; display: none; }
+
+    /* ── ADMIN PANEL ── */
+    #adminPanel { display: none; }
+
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+    header a {
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color .2s;
+    }
+    header a:hover { color: #fff; }
+
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+    /* ── ADD FORM ── */
+    .add-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      margin-bottom: 36px;
+    }
+    .add-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-grid input, .form-grid select {
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-grid input:focus, .form-grid select:focus { border-color: var(--accent); }
+
+    .img-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .img-row input[type="file"] {
+      flex: 1;
+      padding: 9px 14px;
+      border: 1.5px dashed #ccc;
+      border-radius: 10px;
+      font-size: .85rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    #imgPreview {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1.5px solid #eee;
+      background: #f9f9f9;
+      display: none;
+    }
+
+    .btn-add {
+      padding: 11px 30px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-add:hover { background: #1a5faa; }
+
+    /* ── PRODUCTS TABLE ── */
+    .products-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .search-admin {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      padding: 9px 14px;
+      max-width: 320px;
+      margin-bottom: 20px;
+    }
+    .search-admin input {
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: .9rem;
+      width: 100%;
+    }
+
+    .products-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+    }
+    .products-table th {
+      background: var(--dark);
+      color: rgba(255,255,255,.7);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 16px;
+      text-align: left;
+    }
+    .products-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: .88rem;
+      vertical-align: middle;
+    }
+    .products-table tr:last-child td { border-bottom: none; }
+    .products-table tr:hover td { background: #f9f9f9; }
+
+    .prod-img-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #f5f5f5;
+      border: 1px solid #eee;
+    }
+    .prod-emoji-thumb {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      background: #f0f4fb;
+      border-radius: 8px;
+    }
+
+    .cat-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: #e8f0fb;
+      color: #1a5faa;
+    }
+
+    .btn-delete {
+      padding: 6px 14px;
+      background: #ffeaea;
+      color: var(--red);
+      border: none;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-delete:hover { background: var(--red); color: #fff; }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: .9rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { background: var(--green); }
+    .toast.error   { background: var(--red); }
+
+    @media (max-width: 700px) {
+      .form-grid { grid-template-columns: 1fr; }
+      header { padding: 14px 16px; }
+      .admin-body { padding: 20px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>AMLOG Admin</h1>
+    <p>Connectez-vous pour gérer les produits</p>
+    <input type="password" id="pwdInput" placeholder="Mot de passe admin" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="btn-primary" onclick="login()">Se connecter</button>
+    <p id="loginError">❌ Mot de passe incorrect</p>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel">
+
+  <header>
+    <h1>AMLOG — Gestion Produits</h1>
+    <div style="display:flex;gap:20px;align-items:center">
+      <span id="productCountBadge" style="color:rgba(255,255,255,.5);font-size:.85rem"></span>
+      <a href="index.html">← Voir le site</a>
+      <a href="#" onclick="logout()">Déconnexion</a>
+    </div>
+  </header>
+
+  <div class="admin-body">
+
+    <!-- AJOUTER -->
+    <div class="add-card">
+      <h2>➕ Ajouter un produit</h2>
+      <div class="form-grid">
+        <input type="text" id="newName" placeholder="Nom du produit (ex: Basmati 1kg×20)"/>
+        <select id="newCat">
+          <option value="patisserie">Pâtisserie</option>
+          <option value="epicerie" selected>Épicerie</option>
+          <option value="biscuits">Biscuits & Snacking</option>
+          <option value="boissons">Eau & Boissons</option>
+          <option value="entretien">Entretien & Nettoyage</option>
+          <option value="animaux">Animaux</option>
+        </select>
+        <input type="text" id="newEmoji" placeholder="Emoji (ex: 🌾)"/>
+      </div>
+      <div class="img-row">
+        <input type="file" id="newImg" accept="image/*" onchange="previewImg(this)"/>
+        <img id="imgPreview" src="" alt="preview"/>
+      </div>
+      <button class="btn-add" onclick="addProduct()">Ajouter le produit</button>
+    </div>
+
+    <!-- LISTE -->
+    <div class="products-section">
+      <h2>📦 Produits (<span id="countLabel">0</span>)</h2>
+      <div class="search-admin">
+        <svg width="16" height="16" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="adminSearch" placeholder="Chercher..." oninput="renderTable()"/>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>ID</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="productsTableBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'http://localhost:3000/api/products';
+let adminPassword = '';
+let allProducts   = [];
+
+const CAT_LABELS = {
+  patisserie: "Pâtisserie",
+  epicerie:   "Épicerie",
+  biscuits:   "Biscuits & Snacking",
+  boissons:   "Eau & Boissons",
+  entretien:  "Entretien & Nettoyage",
+  animaux:    "Animaux",
+};
+
+// ── AUTH
+async function login() {
+  const pwd = document.getElementById('pwdInput').value.trim();
+  if (!pwd) return;
+  // Test le mot de passe avec l'API
+  const res = await fetch(API, { headers: { 'x-admin-password': pwd } });
+  if (res.ok) {
+    adminPassword = pwd;
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display  = 'block';
+    loadProducts();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function logout() {
+  adminPassword = '';
+  location.reload();
+}
+
+// ── LOAD
+async function loadProducts() {
+  const res = await fetch(API);
+  allProducts = await res.json();
+  renderTable();
+  document.getElementById('productCountBadge').textContent = `${allProducts.length} produits`;
+}
+
+// ── RENDER TABLE
+function renderTable() {
+  const q    = document.getElementById('adminSearch').value.toLowerCase();
+  const list = allProducts.filter(p => p.name.toLowerCase().includes(q));
+  document.getElementById('countLabel').textContent = list.length;
+
+  const tbody = document.getElementById('productsTableBody');
+  tbody.innerHTML = list.map(p => `
+    <tr>
+      <td>
+        ${p.img
+          ? `<img class="prod-img-thumb" src="${p.img}" alt="${p.name}">`
+          : `<div class="prod-emoji-thumb">${p.emoji}</div>`}
+      </td>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="cat-badge">${CAT_LABELS[p.cat] || p.cat}</span></td>
+      <td style="color:#aaa">#${String(p.id).padStart(4,'0')}</td>
+      <td><button class="btn-delete" onclick="deleteProduct(${p.id})">🗑 Supprimer</button></td>
+    </tr>
+  `).join('');
+}
+
+// ── ADD
+async function addProduct() {
+  const name  = document.getElementById('newName').value.trim();
+  const cat   = document.getElementById('newCat').value;
+  const emoji = document.getElementById('newEmoji').value.trim() || '📦';
+  const file  = document.getElementById('newImg').files[0];
+
+  if (!name) { showToast('Entrez un nom de produit', 'error'); return; }
+
+  let img = '';
+  if (file) img = await toBase64(file);
+
+  const res = await fetch(API, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+    body:    JSON.stringify({ name, cat, emoji, img })
+  });
+
+  if (res.ok) {
+    showToast('✅ Produit ajouté !', 'success');
+    document.getElementById('newName').value  = '';
+    document.getElementById('newEmoji').value = '';
+    document.getElementById('newImg').value   = '';
+    document.getElementById('imgPreview').style.display = 'none';
+    loadProducts();
+  } else {
+    showToast('Erreur lors de l\'ajout', 'error');
+  }
+}
+
+// ── DELETE
+async function deleteProduct(id) {
+  if (!confirm('Supprimer ce produit ?')) return;
+  const res = await fetch(`${API}/${id}`, {
+    method:  'DELETE',
+    headers: { 'x-admin-password': adminPassword }
+  });
+  if (res.ok) {
+    showToast('🗑 Produit supprimé', 'success');
+    loadProducts();
+  } else {
+    showToast('Erreur lors de la suppression', 'error');
+  }
+}
+
+// ── IMAGE PREVIEW
+function previewImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const preview = document.getElementById('imgPreview');
+  preview.style.display = 'block';
+  preview.src = URL.createObjectURL(file);
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload  = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+// ── TOAST
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = `toast ${type} show`;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+</script>
+</body>
+</html>

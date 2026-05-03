@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AMLOG – Nos Catégories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+
+      <!-- TABS -->
+      <div style="display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid #eee;">
+        <button id="tabLogin" onclick="switchTab('login')"
+          style="flex:1;padding:10px;border:none;background:none;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;color:#2d7dd2;border-bottom:2px solid #2d7dd2;margin-bottom:-2px;">
+          Connexion
+        </button>
+        <button id="tabRegister" onclick="switchTab('register')"
+          style="flex:1;padding:10px;border:none;background:none;font-family:inherit;font-size:.95rem;font-weight:500;cursor:pointer;color:#aaa;">
+          S'inscrire
+        </button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="formLogin">
+        <p class="sub">Accédez à votre espace AMLOG</p>
+        <label for="loginEmail">Adresse e-mail</label>
+        <input type="email" id="loginEmail" placeholder="vous@exemple.com"/>
+        <label for="loginPassword">Mot de passe</label>
+        <input type="password" id="loginPassword" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')handleLogin()"/>
+        <p id="loginError" style="color:#e53935;font-size:.83rem;margin:-10px 0 14px;display:none"></p>
+        <button class="btn-login" onclick="handleLogin()">Se connecter</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="formRegister" style="display:none">
+        <p class="sub">Créez votre compte AMLOG</p>
+        <label for="regEmail">Adresse e-mail</label>
+        <input type="email" id="regEmail" placeholder="vous@exemple.com"/>
+        <label for="regPassword">Mot de passe</label>
+        <input type="password" id="regPassword" placeholder="Min. 6 caractères"/>
+        <label for="regPassword2">Confirmer le mot de passe</label>
+        <input type="password" id="regPassword2" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')handleRegister()"/>
+        <p id="regError" style="color:#e53935;font-size:.83rem;margin:-10px 0 14px;display:none"></p>
+        <button class="btn-login" onclick="handleRegister()">Créer mon compte</button>
+      </div>
+
+      <!-- SUCCESS MSG -->
+      <div id="authSuccess" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:2.5rem;margin-bottom:10px">✅</div>
+        <p id="authSuccessMsg" style="font-weight:600;color:#1a1a2e"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>Bienvenue sur AMLOG</span>
+    <span id="topBarUser" style="display:none;color:#2d7dd2;font-weight:600;font-size:.85rem"></span>
+    <a href="#" id="topBarBtn" onclick="openModal(); return false;">🔐 Se connecter / S'inscrire</a>
+  </div>
+
+  <div class="banner">🚚 Livraison Express Partout au Maroc en 24–48h !</div>
+
+  <header>
+    <a href="index.html" style="text-decoration:none"><div class="logo">AM<span>L</span>◆G</div></a>
+    <nav>
+      <a href="#">Accueil</a>
+      <a href="catalog.html?cat=all">Produits</a>
+      <a href="about.html">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Nos Catégories</h1>
+    <p>Des produits soigneusement sélectionnés, livrés partout au Maroc.</p>
+    <div class="divider"></div>
+  </section>
+
+  <div class="categories-wrapper">
+
+    <!-- ROW 1 : 4 cards -->
+    <div class="row row-4">
+
+      <a href="catalog.html?cat=patisserie" class="card card-patisserie">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=85" alt="Pâtisserie"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">🥐</div>
+          <div class="overlay-title">Pâtisserie</div>
+          <div class="overlay-sub">Douceurs & Délices</div>
+          <p class="overlay-desc">Gâteaux, tartes et viennoiseries artisanales pour toutes les occasions.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Pâtisserie</h3><span>Douceurs & Délices</span></div>
+      </a>
+
+      <a href="catalog.html?cat=epicerie" class="card card-epicerie">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1543168256-418811576931?w=700&q=85" alt="Épicerie"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">🛒</div>
+          <div class="overlay-title">Épicerie</div>
+          <div class="overlay-sub">Produits du Quotidien</div>
+          <p class="overlay-desc">Huiles, conserves, épices et tout l'essentiel pour votre cuisine.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Épicerie</h3><span>Produits du Quotidien</span></div>
+      </a>
+
+      <a href="catalog.html?cat=biscuits" class="card card-biscuits">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=700&q=85" alt="Biscuits & Snacking"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">🍪</div>
+          <div class="overlay-title">Biscuits & Snacking</div>
+          <div class="overlay-sub">Grignotage Savoureux</div>
+          <p class="overlay-desc">Chips, crackers, biscuits et en-cas pour petits et grands.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Biscuits & Snacking</h3><span>Grignotage Savoureux</span></div>
+      </a>
+
+      <a href="catalog.html?cat=boissons" class="card card-boissons">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=700&q=85" alt="Eau & Boissons"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">💧</div>
+          <div class="overlay-title">Eau & Boissons</div>
+          <div class="overlay-sub">Fraîcheur Garantie</div>
+          <p class="overlay-desc">Eaux minérales, jus naturels et boissons fraîches livrées chez vous.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Eau & Boissons</h3><span>Fraîcheur Garantie</span></div>
+      </a>
+
+    </div>
+
+    <!-- ROW 2 : 2 cards -->
+    <div class="row row-2">
+
+      <a href="catalog.html?cat=entretien" class="card card-entretien">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=700&q=85" alt="Entretien & Nettoyage" style="object-position:center center"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">🧹</div>
+          <div class="overlay-title">Entretien & Nettoyage</div>
+          <div class="overlay-sub">Propreté au Quotidien</div>
+          <p class="overlay-desc">Détergents, désinfectants et produits ménagers pour un intérieur impeccable.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Entretien & Nettoyage</h3><span>Propreté au Quotidien</span></div>
+      </a>
+
+      <a href="catalog.html?cat=animaux" class="card card-animaux">
+        <div class="card-bar"></div>
+        <img class="card-img" src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=700&q=85" alt="Animaux" style="object-position:center center"/>
+        <div class="card-overlay">
+          <div class="overlay-icon">🐾</div>
+          <div class="overlay-title">Animaux</div>
+          <div class="overlay-sub">Nourriture Chats & Chiens</div>
+          <p class="overlay-desc">Croquettes, pâtées et friandises pour le bonheur de vos compagnons.</p>
+          <button class="overlay-btn">Découvrir</button>
+        </div>
+        <div class="card-label"><h3>Animaux</h3><span>Nourriture Chats & Chiens</span></div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2 class="contact-title">Contactez-nous</h2>
+      <p class="contact-sub">Notre équipe est disponible pour répondre à toutes vos questions.</p>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <div class="contact-label">Téléphone</div>
+          <a href="tel:06 63 05 18 20" class="contact-value"> 06 63 05 18 20</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-label">Email</div>
+          <a href="mailto:contact@amlogdistribution.com" class="contact-value"> contact@amlogdistribution.com</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <div class="contact-label">Adresse</div>
+          <span class="contact-value">83 b lot riad laymoune route meknes,Fés</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-socials">
+      <a href="#" class="social-btn" aria-label="YouTube">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.3l-.5 3.5h-2.8V24C19.6 23.1 24 18.1 24 12.1z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.2 4.8 1.7 5 5 .1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.2 3.3-1.7 4.8-5 5-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.2-4.8-1.7-5-5C2.1 15.6 2 15.2 2 12s0-3.6.1-4.8c.2-3.3 1.7-4.8 5-5C8.4 2.2 8.8 2.2 12 2.2zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7C24 15.7 24 15.3 24 12s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.2 2.3 4.2 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zm1.8 13H3.5V9h3.6v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.8v20.4C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.8C24 .8 23.2 0 22.2 0z"/></svg>
+      </a>
+      <a href="#" class="social-btn" aria-label="Twitter / X">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1h3.7l-8 9.2L24 23h-7.4l-5.8-7.5L4.5 23H.8l8.6-9.8L0 1h7.6l5.2 6.8L18.9 1zm-1.3 19.8h2L6.5 3.2H4.3l13.3 17.6z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">© 2026 <strong>AMLOG</strong> — Livraison Express Partout au Maroc</p>
+  </footer>
+
+  <script>
+    const API = 'http://localhost:3000';
+
+    // ── Modal open/close
+    function openModal()  {
+      switchTab('login');
+      document.getElementById('authSuccess').style.display = 'none';
+      document.getElementById('formLogin').style.display   = 'block';
+      document.getElementById('modalBackdrop').classList.add('open');
+    }
+    function closeModal() {
+      document.getElementById('modalBackdrop').classList.remove('open');
+    }
+    document.getElementById('modalBackdrop').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── Tabs
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('formLogin').style.display    = isLogin ? 'block' : 'none';
+      document.getElementById('formRegister').style.display = isLogin ? 'none'  : 'block';
+      document.getElementById('authSuccess').style.display  = 'none';
+      document.getElementById('tabLogin').style.cssText    += isLogin
+        ? ';color:#2d7dd2;font-weight:600;border-bottom:2px solid #2d7dd2;margin-bottom:-2px'
+        : ';color:#aaa;font-weight:500;border-bottom:2px solid transparent';
+      document.getElementById('tabRegister').style.cssText += isLogin
+        ? ';color:#aaa;font-weight:500;border-bottom:2px solid transparent'
+        : ';color:#2d7dd2;font-weight:600;border-bottom:2px solid #2d7dd2;margin-bottom:-2px';
+    }
+
+    // ── Login
+    async function handleLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPassword').value;
+      const errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+
+      if (!email || !pass) { showErr(errEl, 'Remplissez tous les champs'); return; }
+
+      try {
+        const res  = await fetch(`${API}/api/login`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, password: pass })
+        });
+        const data = await res.json();
+        if (!res.ok) { showErr(errEl, data.error); return; }
+
+        // Succès
+        sessionStorage.setItem('user', JSON.stringify(data));
+        showSuccess(`Bienvenue, ${data.email} !`);
+        updateTopBar(data.email);
+        setTimeout(closeModal, 1500);
+      } catch {
+        showErr(errEl, 'Serveur hors ligne — lancez node server.js');
+      }
+    }
+
+    // ── Register
+    async function handleRegister() {
+      const email = document.getElementById('regEmail').value.trim();
+      const pass  = document.getElementById('regPassword').value;
+      const pass2 = document.getElementById('regPassword2').value;
+      const errEl = document.getElementById('regError');
+      errEl.style.display = 'none';
+
+      if (!email || !pass) { showErr(errEl, 'Remplissez tous les champs'); return; }
+      if (pass !== pass2)  { showErr(errEl, 'Les mots de passe ne correspondent pas'); return; }
+      if (pass.length < 6) { showErr(errEl, 'Mot de passe trop court (min 6 caractères)'); return; }
+
+      try {
+        const res  = await fetch(`${API}/api/register`, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, password: pass })
+        });
+        const data = await res.json();
+        if (!res.ok) { showErr(errEl, data.error); return; }
+
+        showSuccess('Compte créé ! Vous pouvez vous connecter.');
+        setTimeout(() => switchTab('login'), 2000);
+      } catch {
+        showErr(errEl, 'Serveur hors ligne — lancez node server.js');
+      }
+    }
+
+    function showErr(el, msg) {
+      el.textContent    = '⚠️ ' + msg;
+      el.style.display  = 'block';
+    }
+    function showSuccess(msg) {
+      document.getElementById('formLogin').style.display    = 'none';
+      document.getElementById('formRegister').style.display = 'none';
+      document.getElementById('authSuccessMsg').textContent = msg;
+      document.getElementById('authSuccess').style.display  = 'block';
+    }
+    function updateTopBar(email) {
+      document.getElementById('topBarUser').style.display = 'inline';
+      document.getElementById('topBarUser').textContent   = '👤 ' + email;
+      document.getElementById('topBarBtn').textContent    = 'Déconnexion';
+      document.getElementById('topBarBtn').onclick        = () => {
+        sessionStorage.removeItem('user');
+        location.reload();
+      };
+    }
+
+    // ── Restore session
+    const saved = sessionStorage.getItem('user');
+    if (saved) updateTopBar(JSON.parse(saved).email);
+  </script>
+</body>
+</html>
