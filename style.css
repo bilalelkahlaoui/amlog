@@ -148,6 +148,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
+  overflow: visible;
 }
 .logo {
   font-family: 'Playfair Display', serif;
@@ -171,23 +172,14 @@ nav a {
 }
 nav a:hover { opacity: 1; }
 
-/* Cart btn override — badge doit être visible */
+/* Cart btn override — badge visible */
 nav a.cart-nav-btn {
   opacity: 1 !important;
   position: relative !important;
   overflow: visible !important;
-  vertical-align: middle !important;
   display: inline-flex !important;
-}
-nav a.cart-nav-btn .cart-badge {
-  position: absolute !important;
-  top: -6px !important;
-  right: -6px !important;
-  display: none;
-  z-index: 999 !important;
-}
-nav a.cart-nav-btn .cart-badge[style*="flex"] {
-  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
  
 /* ══ HERO ══ */
