@@ -37,7 +37,11 @@ function updateCartBadge() {
   const badge = document.getElementById("cartBadge");
   if (badge) {
     badge.textContent = total;
-    badge.style.display = total > 0 ? "flex" : "none";
+    if (total > 0) {
+      badge.style.cssText = "display:flex!important;background:#e53935;color:#fff;position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;border-radius:99px;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(229,57,53,.6);z-index:9999;padding:0 5px;";
+    } else {
+      badge.style.cssText = "display:none";
+    }
   }
 }
 
