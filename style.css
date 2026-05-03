@@ -166,6 +166,13 @@ nav a {
   transition: opacity .2s;
 }
 nav a:hover { opacity: 1; }
+
+/* Cart btn override — badge doit être visible */
+nav a.cart-nav-btn {
+  opacity: 1 !important;
+  position: relative !important;
+  overflow: visible !important;
+}
  
 /* ══ HERO ══ */
 .hero {
