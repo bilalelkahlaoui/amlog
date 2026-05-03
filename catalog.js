@@ -48,7 +48,7 @@ const PRODUCT_IMAGES = {
 // ══════════════════════════════════════════════
 //  LABELS
 // ══════════════════════════════════════════════
-let CAT_LABELS = {
+const CAT_LABELS = {
   all:       "Tous les produits",
   patisserie:"Pâtisserie",
   epicerie:  "Épicerie",
@@ -292,30 +292,6 @@ document.getElementById("searchInput").addEventListener("input", e => {
 // ══════════════════════════════════════════════
 //  INIT — charger depuis API
 // ══════════════════════════════════════════════
-
-// ── EXTRA CATEGORIES FROM ADMIN
-function loadExtraCategories() {
-  try {
-    const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
-    const nav = document.getElementById('catNav');
-    // Find the last cat-btn to insert before any + button
-    extras.forEach(c => {
-      if (!CAT_LABELS[c.key]) {
-        CAT_LABELS[c.key] = c.label;
-        // Add button if not exists
-        if (!nav.querySelector(`[data-cat="${c.key}"]`)) {
-          const btn = document.createElement('button');
-          btn.className = 'cat-btn';
-          btn.dataset.cat = c.key;
-          btn.innerHTML = `<span class="icon">${c.emoji || '📦'}</span> ${c.label}`;
-          nav.appendChild(btn);
-        }
-      }
-    });
-  } catch(e) {}
-}
-
-loadExtraCategories();
 loadProducts();
 
 document.getElementById("searchInput").addEventListener("input", e => {
@@ -325,3 +301,4 @@ document.getElementById("searchInput").addEventListener("input", e => {
 
 // INIT
 render();
+
