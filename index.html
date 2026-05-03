@@ -226,7 +226,7 @@
   </footer>
 
   <script>
-    const API = 'http://localhost:3000';
+    const API = '';
 
     // ── Modal open/close
     function openModal()  {
@@ -281,7 +281,7 @@
         updateTopBar(data.email);
         setTimeout(closeModal, 1500);
       } catch {
-        showErr(errEl, 'Serveur hors ligne — lancez node server.js');
+        showErr(errEl, 'Erreur de connexion, réessayez');
       }
     }
 
@@ -309,7 +309,7 @@
         showSuccess('Compte créé ! Vous pouvez vous connecter.');
         setTimeout(() => switchTab('login'), 2000);
       } catch {
-        showErr(errEl, 'Serveur hors ligne — lancez node server.js');
+        showErr(errEl, 'Erreur de connexion, réessayez');
       }
     }
 
