@@ -218,6 +218,7 @@
   opacity: 1 !important;
   transition: background .2s, transform .2s;
   margin-left: 16px;
+  overflow: visible !important;
 }
 .cart-nav-btn:hover { background: #e8f0fb; transform: translateY(-2px); }
 .cart-badge {
