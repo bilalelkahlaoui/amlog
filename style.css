@@ -156,6 +156,10 @@ header {
   letter-spacing: -.02em;
 }
 .logo span { color: var(--accent); }
+nav {
+  display: flex;
+  align-items: center;
+}
 nav a {
   text-decoration: none;
   color: var(--dark);
@@ -172,6 +176,18 @@ nav a.cart-nav-btn {
   opacity: 1 !important;
   position: relative !important;
   overflow: visible !important;
+  vertical-align: middle !important;
+  display: inline-flex !important;
+}
+nav a.cart-nav-btn .cart-badge {
+  position: absolute !important;
+  top: -6px !important;
+  right: -6px !important;
+  display: none;
+  z-index: 999 !important;
+}
+nav a.cart-nav-btn .cart-badge[style*="flex"] {
+  display: flex !important;
 }
  
 /* ══ HERO ══ */
