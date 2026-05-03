@@ -81,7 +81,6 @@ async function loadProducts() {
     console.warn("Serveur non disponible — mode hors ligne");
     // Fallback: produits vides si serveur off
     PRODUCTS = [];
-    showOfflineBanner();
   }
 
   // Lire catégorie depuis URL
@@ -94,12 +93,7 @@ async function loadProducts() {
   render();
 }
 
-function showOfflineBanner() {
-  const banner = document.createElement("div");
-  banner.style.cssText = "background:#e53935;color:#fff;text-align:center;padding:10px;font-size:.85rem;";
-  banner.textContent   = "⚠️ Serveur hors ligne — lancez \'node server.js\'";
-  document.body.prepend(banner);
-}
+
 
 // ══════════════════════════════════════════════
 //  RENDER
