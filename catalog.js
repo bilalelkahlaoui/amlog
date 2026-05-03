@@ -56,6 +56,7 @@ const CAT_LABELS = {
   boissons:  "Eau & Boissons",
   entretien: "Entretien & Nettoyage",
   animaux:   "Animaux",
+  surgeles:  "Surgelés",
 };
 
 // ══════════════════════════════════════════════
