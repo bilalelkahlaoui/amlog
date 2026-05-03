@@ -48,7 +48,7 @@ const PRODUCT_IMAGES = {
 // ══════════════════════════════════════════════
 //  LABELS
 // ══════════════════════════════════════════════
-let CAT_LABELS = {
+const CAT_LABELS = {
   all:       "Tous les produits",
   patisserie:"Pâtisserie",
   epicerie:  "Épicerie",
@@ -57,60 +57,6 @@ let CAT_LABELS = {
   entretien: "Entretien & Nettoyage",
   animaux:   "Animaux",
 };
-
-// Load extra categories from localStorage
-function loadExtraCategories() {
-  try {
-    const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
-    extras.forEach(c => { CAT_LABELS[c.key] = c.label; });
-    return extras;
-  } catch(e) { return []; }
-}
-
-function openNewCatModal() {
-  const m = document.getElementById('newCatModal');
-  m.style.display = 'flex';
-  document.getElementById('newCatName').focus();
-}
-function closeNewCatModal() {
-  document.getElementById('newCatModal').style.display = 'none';
-  document.getElementById('newCatName').value = '';
-  document.getElementById('newCatEmoji').value = '';
-}
-function confirmNewCat() {
-  const name  = document.getElementById('newCatName').value.trim();
-  const emoji = document.getElementById('newCatEmoji').value.trim() || '📦';
-  if (!name) return;
-  const key = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-  CAT_LABELS[key] = name;
-
-  // Save to localStorage
-  const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
-  if (!extras.find(c => c.key === key)) {
-    extras.push({ key, label: name, emoji });
-    localStorage.setItem('amlog_extra_cats', JSON.stringify(extras));
-  }
-
-  // Add button to nav
-  addCatButton(key, name, emoji);
-  closeNewCatModal();
-}
-
-function addCatButton(key, label, emoji) {
-  const nav = document.getElementById('catNav');
-  const addBtn = document.getElementById('addCatBtn');
-  const btn = document.createElement('button');
-  btn.className = 'cat-btn';
-  btn.dataset.cat = key;
-  btn.innerHTML = `<span class="icon">${emoji}</span> ${label}`;
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentCat = key;
-    renderProducts();
-  });
-  nav.insertBefore(btn, addBtn);
-}
 
 // ══════════════════════════════════════════════
 //  STATE
