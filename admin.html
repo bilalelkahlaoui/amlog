@@ -130,6 +130,15 @@
       font-weight: 700; line-height: 1;
     }
     .btn-del-cat:hover { background: #e53935; color: #fff; }
+
+    /* ── CATEGORIES MANAGER ── */
+    .cats-manager { background: var(--card); border-radius: 16px; padding: 24px 30px; box-shadow: 0 4px 20px rgba(0,0,0,.07); margin-bottom: 36px; }
+    .cats-manager h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: 16px; }
+    .cats-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cat-tag-item { display: flex; align-items: center; gap: 8px; background: #e8f0fb; color: #1a5faa; border-radius: 99px; padding: 6px 14px; font-size: .85rem; font-weight: 600; }
+    .cat-tag-item.default { background: #f0f0f0; color: #666; }
+    .btn-del-cat { width: 20px; height: 20px; border-radius: 50%; border: none; background: #ffd0d0; color: #e53935; font-size: .75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; font-weight: 700; }
+    .btn-del-cat:hover { background: #e53935; color: #fff; }
     @media (max-width: 700px) { .form-grid { grid-template-columns: 1fr; } header { padding: 14px 16px; } .admin-body { padding: 20px 12px; } }
   </style>
 </head>
@@ -180,7 +189,13 @@
       <button class="btn-add" onclick="addProduct()">Ajouter le produit</button>
     </div>
 
-    <div class="products-section">
+    <!-- CATEGORIES MANAGER -->
+    <div class="cats-manager" id="catsManager">
+      <h2>🏷️ Catégories (<span id="catsCount">0</span>)</h2>
+      <div class="cats-list" id="catsList"></div>
+    </div>
+
+        <div class="products-section">
       <h2>📦 Produits (<span id="countLabel">0</span>)</h2>
       <div class="search-admin">
         <svg width="16" height="16" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -282,6 +297,41 @@ function confirmCat() {
   showToast(`✅ Catégorie "${name}" ajoutée !`, 'success');
 }
 
+
+// ── CATS LIST
+function renderCatsList() {
+  const defaults = ['patisserie','epicerie','biscuits','boissons','entretien','animaux'];
+  const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
+  const container = document.getElementById('catsList');
+  const countEl = document.getElementById('catsCount');
+  if (!container) return;
+  const allCats = [
+    ...defaults.map(k => ({ key: k, label: CAT_LABELS[k], emoji: '', isDefault: true })),
+    ...extras.map(c => ({ ...c, isDefault: false }))
+  ];
+  countEl.textContent = allCats.length;
+  container.innerHTML = allCats.map(c => `
+    <div class="cat-tag-item ${c.isDefault ? 'default' : ''}">
+      <span>${c.emoji || ''} ${c.label}</span>
+      ${!c.isDefault ? `<button class="btn-del-cat" onclick="deleteCat('${c.key}')" title="Supprimer">✕</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function deleteCat(key) {
+  const label = CAT_LABELS[key] || key;
+  if (!confirm(`Supprimer la catégorie "${label}" ?\n\nLes produits de cette catégorie resteront mais sans catégorie visible.`)) return;
+  let extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
+  extras = extras.filter(c => c.key !== key);
+  localStorage.setItem('amlog_extra_cats', JSON.stringify(extras));
+  delete CAT_LABELS[key];
+  const sel = document.getElementById('newCat');
+  const opt = sel.querySelector(`option[value="${key}"]`);
+  if (opt) opt.remove();
+  renderCatsList();
+  showToast(`🗑 Catégorie "${label}" supprimée`, 'success');
+}
+
 // ── AUTH
 async function login() {
   const pwd = document.getElementById('pwdInput').value.trim();
@@ -293,6 +343,7 @@ async function login() {
     document.getElementById('adminPanel').style.display  = 'block';
     loadProducts();
     loadExtraCats();
+    renderCatsList();
   } else {
     document.getElementById('loginError').style.display = 'block';
   }
