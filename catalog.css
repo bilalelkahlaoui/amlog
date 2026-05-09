@@ -1,5 +1,3 @@
-/* catalog.css — styles spécifiques à la page produits */
-
 :root {
   --bg:      #f5f2ee;
   --card-bg: #ffffff;
@@ -12,7 +10,6 @@
   --shadow:  0 4px 24px rgba(0,0,0,0.07);
 }
 
-/* ── CATEGORIES NAV ── */
 .categories-nav {
   display: flex;
   gap: 10px;
@@ -48,7 +45,6 @@
   border-color: var(--text);
 }
 
-/* ── SECTION TITLE ── */
 .section-header {
   padding: 32px 40px 8px;
   display: flex;
@@ -67,7 +63,6 @@
   font-weight: 400;
 }
 
-/* ── SEARCH ── */
 .search-bar {
   margin: 0 40px 24px;
   display: flex;
@@ -91,7 +86,6 @@
 .search-bar input::placeholder { color: var(--muted); }
 .search-bar svg { color: var(--accent); flex-shrink: 0; }
 
-/* ── GRID ── */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -99,7 +93,6 @@
   padding: 0 40px 60px;
 }
 
-/* ── PRODUCT CARD ── */
 .product-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -154,7 +147,6 @@
   letter-spacing: 0.04em;
 }
 
-/* ── EMPTY STATE ── */
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
@@ -164,7 +156,6 @@
 .empty-state .emoji { font-size: 3rem; margin-bottom: 12px; }
 .empty-state p { font-size: 1rem; }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .categories-nav,
   .section-header,
@@ -172,10 +163,8 @@
   .search-bar { margin-left: 16px; margin-right: 16px; }
 }
 
-/* Fix: les <a> des cards dans index.html ne doivent pas avoir underline */
 a.card { text-decoration: none; display: block; }
 
-/* ══ PRODUCT MODAL ══ */
 .product-modal-backdrop {
   display: none;
   position: fixed;
@@ -270,7 +259,6 @@ a.card { text-decoration: none; display: block; }
   color: var(--text);
 }
 
-/* ── CART ROW (qty + btn même style que info-grid) ── */
 .modal-cart-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
