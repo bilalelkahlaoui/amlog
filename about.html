@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ══ ABOUT PAGE STYLES ══ */
     .about-hero {
       background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #0f3460 100%);
       color: #fff;
@@ -51,14 +50,12 @@
       position: relative;
     }
 
-    /* ══ ABOUT CONTENT ══ */
     .about-content {
       max-width: 1100px;
       margin: 0 auto;
       padding: 80px 40px 60px;
     }
 
-    /* Intro block */
     .about-intro {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -122,7 +119,6 @@
       grid-column: 1 / -1;
     }
 
-    /* Section title */
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.5rem, 3vw, 2rem);
@@ -136,7 +132,6 @@
       line-height: 1.6;
     }
 
-    /* Vision & Mission */
     .vision-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -188,7 +183,6 @@
       flex-shrink: 0;
     }
 
-    /* Activité & Métier */
     .activity-section {
       margin-bottom: 90px;
     }
@@ -218,7 +212,6 @@
       line-height: 1.75;
     }
 
-    /* Qualité banner */
     .quality-banner {
       background: linear-gradient(135deg, var(--accent) 0%, #1a5faa 100%);
       border-radius: 24px;
@@ -278,7 +271,6 @@
       letter-spacing: .04em;
     }
 
-    /* Marques */
     .brands-section { margin-bottom: 90px; }
     .brands-grid {
       display: grid;
@@ -312,7 +304,6 @@
       line-height: 1.65;
     }
 
-    /* Avis clients */
     .reviews-section { margin-bottom: 90px; }
     .reviews-grid {
       display: grid;
@@ -375,7 +366,6 @@
       font-size: .8rem;
     }
 
-    /* ══ RESPONSIVE ABOUT ══ */
     @media (max-width: 900px) {
       .about-intro { grid-template-columns: 1fr; gap: 36px; }
       .vision-grid, .activity-grid, .brands-grid, .reviews-grid {
@@ -392,7 +382,6 @@
 </head>
 <body>
 
-  <!-- AUTH MODAL -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕</button>
@@ -435,7 +424,6 @@
     </div>
   </div>
 
-  <!-- TOP BAR -->
   <div class="top-bar">
     <span>Bienvenue sur AMLOG</span>
     <span id="topBarUser" style="display:none;color:#2d7dd2;font-weight:600;font-size:.85rem"></span>
@@ -454,17 +442,14 @@
     </nav>
   </header>
 
-  <!-- HERO -->
   <section class="about-hero">
     <div class="about-hero-tag">Notre Histoire</div>
     <h1>À propos de AMLOG</h1>
     <p>Depuis notre lancement, nous nous sommes engagés à introduire sur le marché marocain des produits alimentaires importés de haute qualité.</p>
   </section>
 
-  <!-- MAIN CONTENT -->
   <div class="about-content">
 
-    <!-- INTRO -->
     <div class="about-intro">
       <div class="about-intro-text">
         <h2>Un acteur incontournable de la distribution au Maroc</h2>
@@ -494,7 +479,6 @@
       </div>
     </div>
 
-    <!-- VISION & MISSION -->
     <div style="margin-bottom:48px;">
       <h2 class="section-title">Notre Vision et Notre Mission</h2>
       <p class="section-sub">AMLOG s'appuie sur deux axes principaux pour assurer son développement.</p>
@@ -520,7 +504,6 @@
       </div>
     </div>
 
-    <!-- ACTIVITÉ & MÉTIER -->
     <div class="activity-section" style="margin-top:90px;">
       <h2 class="section-title">Notre Activité & Notre Métier</h2>
       <p class="section-sub">AMLOG occupe une place importante dans la distribution agroalimentaire au Maroc.</p>
@@ -536,7 +519,6 @@
       </div>
     </div>
 
-    <!-- QUALITÉ BANNER -->
     <div class="quality-banner">
       <h2>Qualité, Disponibilité et Respect des Délais</h2>
       <p>AMLOG met un point d'honneur à proposer des produits fiables, disponibles en continu et livrés dans les meilleurs délais. Grâce à une logistique moderne et une organisation efficace, l'entreprise garantit une distribution rapide et sécurisée sur l'ensemble du territoire marocain.</p>
@@ -548,7 +530,6 @@
       </div>
     </div>
 
-    <!-- MARQUES -->
     <div class="brands-section">
       <h2 class="section-title">Nos Marques</h2>
       <p class="section-sub">Nous distribuons plusieurs marques internationales de renom à travers le Maroc.</p>
@@ -571,7 +552,6 @@
       </div>
     </div>
 
-    <!-- AVIS CLIENTS -->
     <div class="reviews-section">
       <h2 class="section-title">Avis Clients</h2>
       <p class="section-sub">Ce que nos partenaires disent de nous.</p>
@@ -603,7 +583,6 @@
 
   </div>
 
-  <!-- CONTACT SECTION -->
   <section class="contact-section" id="contact">
     <div class="contact-inner">
       <h2 class="contact-title">Contactez-nous</h2>
@@ -628,7 +607,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-socials">
       <a href="#" class="social-btn" aria-label="YouTube">
