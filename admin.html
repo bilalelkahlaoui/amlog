@@ -37,7 +37,6 @@
     .form-grid input, .form-grid select { padding: 11px 14px; border: 1.5px solid #ddd; border-radius: 10px; font-size: .9rem; font-family: inherit; outline: none; transition: border-color .2s; }
     .form-grid input:focus, .form-grid select:focus { border-color: var(--accent); }
 
-    /* ── CAT ROW ── */
     .cat-select-row { display: flex; gap: 8px; align-items: center; }
     .cat-select-row select { flex: 1; }
     .btn-add-cat {
@@ -54,7 +53,6 @@
     }
     .btn-add-cat:hover { background: var(--accent); color: #fff; }
 
-    /* ── MODAL NEW CAT ── */
     .modal-cat-backdrop {
       display: none; position: fixed; inset: 0;
       background: rgba(0,0,0,.5); z-index: 1000;
@@ -98,7 +96,6 @@
     .toast.success { background: var(--green); }
     .toast.error { background: var(--red); }
 
-    /* ── CATEGORIES MANAGER ── */
     .cats-manager {
       background: var(--card);
       border-radius: 16px;
@@ -131,7 +128,6 @@
     }
     .btn-del-cat:hover { background: #e53935; color: #fff; }
 
-    /* ── CATEGORIES MANAGER ── */
     .cats-manager { background: var(--card); border-radius: 16px; padding: 24px 30px; box-shadow: 0 4px 20px rgba(0,0,0,.07); margin-bottom: 36px; }
     .cats-manager h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: 16px; }
     .cats-list { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -189,7 +185,6 @@
       <button class="btn-add" onclick="addProduct()">Ajouter le produit</button>
     </div>
 
-    <!-- CATEGORIES MANAGER -->
     <div class="cats-manager" id="catsManager">
       <h2>🏷️ Catégories (<span id="catsCount">0</span>)</h2>
       <div class="cats-list" id="catsList"></div>
@@ -211,7 +206,6 @@
   </div>
 </div>
 
-<!-- MODAL NOUVELLE CATEGORIE -->
 <div class="modal-cat-backdrop" id="catModal">
   <div class="modal-cat-box">
     <h3>Nouvelle catégorie</h3>
@@ -241,7 +235,6 @@ let CAT_LABELS = {
   animaux:    "Animaux",
 };
 
-// ── EXTRA CATEGORIES
 function loadExtraCats() {
   try {
     const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
@@ -274,14 +267,12 @@ function confirmCat() {
 
   const key = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'_');
 
-  // Save to localStorage
   const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
   if (!extras.find(c => c.key === key)) {
     extras.push({ key, label: name, emoji });
     localStorage.setItem('amlog_extra_cats', JSON.stringify(extras));
   }
 
-  // Add to select
   CAT_LABELS[key] = name;
   const sel = document.getElementById('newCat');
   if (!sel.querySelector(`option[value="${key}"]`)) {
@@ -298,7 +289,6 @@ function confirmCat() {
 }
 
 
-// ── CATS LIST
 function renderCatsList() {
   const defaults = ['patisserie','epicerie','biscuits','boissons','entretien','animaux'];
   const extras = JSON.parse(localStorage.getItem('amlog_extra_cats') || '[]');
@@ -332,7 +322,6 @@ function deleteCat(key) {
   showToast(`🗑 Catégorie "${label}" supprimée`, 'success');
 }
 
-// ── AUTH
 async function login() {
   const pwd = document.getElementById('pwdInput').value.trim();
   if (!pwd) return;
@@ -350,7 +339,6 @@ async function login() {
 }
 function logout() { adminPassword = ''; location.reload(); }
 
-// ── LOAD
 async function loadProducts() {
   const res = await fetch(API);
   allProducts = await res.json();
@@ -358,7 +346,6 @@ async function loadProducts() {
   document.getElementById('productCountBadge').textContent = `${allProducts.length} produits`;
 }
 
-// ── RENDER TABLE
 function renderTable() {
   const q    = document.getElementById('adminSearch').value.toLowerCase();
   const list = allProducts.filter(p => p.name.toLowerCase().includes(q));
@@ -375,7 +362,6 @@ function renderTable() {
   `).join('');
 }
 
-// ── ADD
 async function addProduct() {
   const name  = document.getElementById('newName').value.trim();
   const cat   = document.getElementById('newCat').value;
@@ -400,8 +386,6 @@ async function addProduct() {
     showToast("Erreur lors de l'ajout", 'error');
   }
 }
-
-// ── DELETE
 async function deleteProduct(id) {
   if (!confirm('Supprimer ce produit ?')) return;
   const res = await fetch(`${API}/${id}`, {
