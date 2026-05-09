@@ -6,7 +6,7 @@
   <title>AMLOG – Nos Catégories</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <!-- Google Analytics -->
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FRPXCS687"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -17,12 +17,11 @@
 </head>
 <body>
 
-  <!-- AUTH MODAL -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕</button>
 
-      <!-- TABS -->
+
       <div style="display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid #eee;">
         <button id="tabLogin" onclick="switchTab('login')"
           style="flex:1;padding:10px;border:none;background:none;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;color:#2d7dd2;border-bottom:2px solid #2d7dd2;margin-bottom:-2px;">
@@ -34,7 +33,7 @@
         </button>
       </div>
 
-      <!-- LOGIN FORM -->
+ 
       <div id="formLogin">
         <p class="sub">Accédez à votre espace AMLOG</p>
         <label for="loginEmail">Adresse e-mail</label>
@@ -46,7 +45,6 @@
         <button class="btn-login" onclick="handleLogin()">Se connecter</button>
       </div>
 
-      <!-- REGISTER FORM -->
       <div id="formRegister" style="display:none">
         <p class="sub">Créez votre compte AMLOG</p>
         <label for="regEmail">Adresse e-mail</label>
@@ -60,7 +58,6 @@
         <button class="btn-login" onclick="handleRegister()">Créer mon compte</button>
       </div>
 
-      <!-- SUCCESS MSG -->
       <div id="authSuccess" style="display:none;text-align:center;padding:20px 0">
         <div style="font-size:2.5rem;margin-bottom:10px">✅</div>
         <p id="authSuccessMsg" style="font-weight:600;color:#1a1a2e"></p>
@@ -69,7 +66,6 @@
     </div>
   </div>
 
-  <!-- TOP BAR -->
   <div class="top-bar">
     <span>Bienvenue sur AMLOG</span>
     <span id="topBarUser" style="display:none;color:#2d7dd2;font-weight:600;font-size:.85rem"></span>
@@ -96,7 +92,6 @@
 
   <div class="categories-wrapper">
 
-    <!-- ROW 1 : 4 cards -->
     <div class="row row-4">
 
       <a href="catalog.html?cat=patisserie" class="card card-patisserie">
@@ -153,7 +148,6 @@
 
     </div>
 
-    <!-- ROW 2 : 2 cards -->
     <div class="row row-2">
 
       <a href="catalog.html?cat=entretien" class="card card-entretien">
@@ -186,7 +180,6 @@
 
   </div>
 
-  <!-- CONTACT SECTION -->
   <section class="contact-section" id="contact">
     <div class="contact-inner">
       <h2 class="contact-title">Contactez-nous</h2>
@@ -211,7 +204,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-socials">
       <a href="#" class="social-btn" aria-label="YouTube">
@@ -236,7 +228,6 @@
   <script>
     const API = '';
 
-    // ── Modal open/close
     function openModal()  {
       switchTab('login');
       document.getElementById('authSuccess').style.display = 'none';
@@ -251,7 +242,6 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ── Tabs
     function switchTab(tab) {
       const isLogin = tab === 'login';
       document.getElementById('formLogin').style.display    = isLogin ? 'block' : 'none';
@@ -265,7 +255,6 @@
         : ';color:#2d7dd2;font-weight:600;border-bottom:2px solid #2d7dd2;margin-bottom:-2px';
     }
 
-    // ── Login
     async function handleLogin() {
       const email = document.getElementById('loginEmail').value.trim();
       const pass  = document.getElementById('loginPassword').value;
@@ -283,7 +272,6 @@
         const data = await res.json();
         if (!res.ok) { showErr(errEl, data.error); return; }
 
-        // Succès
         sessionStorage.setItem('user', JSON.stringify(data));
         showSuccess(`Bienvenue, ${data.email} !`);
         updateTopBar(data.email);
@@ -293,7 +281,6 @@
       }
     }
 
-    // ── Register
     async function handleRegister() {
       const email = document.getElementById('regEmail').value.trim();
       const pass  = document.getElementById('regPassword').value;
@@ -341,7 +328,6 @@
       };
     }
 
-    // ── Restore session
     const saved = sessionStorage.getItem('user');
     if (saved) updateTopBar(JSON.parse(saved).email);
   </script>
