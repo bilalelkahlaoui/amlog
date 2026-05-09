@@ -1,4 +1,3 @@
-/* ══ CART PAGE ══ */
 .cart-page {
   max-width: 1100px;
   margin: 0 auto;
@@ -13,7 +12,6 @@
 }
 .cart-sub { color: #888; font-size: .9rem; margin-top: 6px; }
 
-/* EMPTY */
 .cart-empty {
   text-align: center;
   padding: 80px 20px;
@@ -34,7 +32,6 @@
 }
 .btn-primary:hover { background: #1a5faa; }
 
-/* CONTENT LAYOUT */
 .cart-content {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -42,7 +39,6 @@
   align-items: start;
 }
 
-/* CART LIST */
 .cart-list { display: flex; flex-direction: column; gap: 14px; }
 .cart-item {
   background: #fff;
@@ -133,7 +129,6 @@
 }
 .ctrl-remove:hover { background: #ffe0e0; }
 
-/* SUMMARY */
 .cart-summary {
   background: #fff;
   border-radius: 20px;
@@ -204,7 +199,6 @@
 }
 .btn-clear:hover { border-color: #e53935; color: #e53935; }
 
-/* ══ CART NAV ICON ══ */
 .cart-nav-btn {
   position: relative;
   display: inline-flex;
@@ -244,7 +238,6 @@
   display: flex !important;
 }
 
-/* ══ MODAL ADD-TO-CART ══ */
 .modal-qty-row {
   display: flex;
   align-items: center;
@@ -285,7 +278,6 @@
 }
 .modal-add-cart-btn:hover { background: #1a5faa; transform: translateY(-2px); }
 
-/* ══ TOAST ══ */
 .cart-toast {
   position: fixed;
   bottom: 30px; left: 50%;
