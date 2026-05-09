@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-// ══════════════════════════════════════════════
-//  cart.js — AMLOG Panier
-//  Numéro WhatsApp — à changer ici :
-// ══════════════════════════════════════════════
-const WHATSAPP_NUMBER = "212663051820"; // ← Mettez votre vrai numéro ici
+const WHATSAPP_NUMBER = "212663051820"; 
 
 const CAT_LABELS_CART = {
   patisserie: "Pâtisserie",
@@ -96,7 +91,6 @@ function render() {
     list.appendChild(div);
   });
 
-  // Events
   list.querySelectorAll("[data-action]").forEach(btn => {
     btn.addEventListener("click", () => {
       const id     = parseInt(btn.dataset.id);
@@ -116,7 +110,6 @@ function render() {
   });
 }
 
-// WhatsApp
 document.getElementById("btnWhatsapp").addEventListener("click", () => {
   const cart = getCart();
   if (cart.length === 0) return;
@@ -132,7 +125,6 @@ document.getElementById("btnWhatsapp").addEventListener("click", () => {
   window.open(url, "_blank");
 });
 
-// Vider
 document.getElementById("btnClear").addEventListener("click", () => {
   if (confirm("Vider le panier ?")) {
     localStorage.removeItem("amlog_cart");
@@ -140,7 +132,6 @@ document.getElementById("btnClear").addEventListener("click", () => {
   }
 });
 
-// INIT
 render();
 
 });
