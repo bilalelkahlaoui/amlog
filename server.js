@@ -9,16 +9,13 @@ const PORT = process.env.PORT || 3000;
 const PRODUCTS_DB = path.join(__dirname, 'products.json');
 const USERS_DB    = path.join(__dirname, 'users.json');
 
-// ── Mot de passe admin
 const ADMIN_PASSWORD = 'amlog2026';
 
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.static(__dirname));
 
-// ══════════════════════════════════════════════
-//  HELPERS
-// ══════════════════════════════════════════════
+
 function readProducts() {
   try { return JSON.parse(fs.readFileSync(PRODUCTS_DB, 'utf8')); }
   catch { return []; }
@@ -44,11 +41,7 @@ function adminCheck(req, res) {
   return true;
 }
 
-// ══════════════════════════════════════════════
-//  AUTH ROUTES
-// ══════════════════════════════════════════════
 
-// POST /api/register — inscription
 app.post('/api/register', (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -72,7 +65,6 @@ app.post('/api/register', (req, res) => {
   res.status(201).json({ success: true, email: user.email });
 });
 
-// POST /api/login — connexion
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -90,9 +82,6 @@ app.post('/api/login', (req, res) => {
   res.json({ success: true, email: user.email, id: user.id });
 });
 
-// ══════════════════════════════════════════════
-//  PRODUCTS ROUTES
-// ══════════════════════════════════════════════
 
 app.get('/api/products', (req, res) => {
   res.json(readProducts());
@@ -134,7 +123,6 @@ app.delete('/api/products/:id', (req, res) => {
   res.json({ success: true });
 });
 
-// ── Start
 app.listen(PORT, () => {
   console.log(`✅ AMLOG server      → http://localhost:${PORT}`);
   console.log(`🔐 Admin panel       → http://localhost:${PORT}/admin.html`);
