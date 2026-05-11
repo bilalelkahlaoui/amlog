@@ -325,8 +325,15 @@ function deleteCat(key) {
 async function login() {
   const pwd = document.getElementById('pwdInput').value.trim();
   if (!pwd) return;
-  const res = await fetch(API, { headers: { 'x-admin-password': pwd } });
-  if (res.ok) {
+  const res = await fetch(API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-password': pwd
+    },
+    body: JSON.stringify({ _checkAuth: true })
+  });
+  if (res.status !== 401) {
     adminPassword = pwd;
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminPanel').style.display  = 'block';
