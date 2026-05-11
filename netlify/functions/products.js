@@ -55,6 +55,11 @@ exports.handler = async (event) => {
 
     // ─── POST: zid produit jdid ────────────────────────────────────
     if (method === 'POST') {
+      // Check auth only — mzid walo
+      if (body._checkAuth) {
+        return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
+      }
+
       const last = await db
         .collection('products')
         .find({})
