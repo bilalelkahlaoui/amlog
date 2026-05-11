@@ -1,5 +1,4 @@
 const { MongoClient } = require('mongodb');
-const PRODUCTS_DATA = require('./products.json');
 
 const MONGODB_URI = process.env.MONGODB_URI;
 let db;
@@ -13,18 +12,6 @@ async function getDB() {
   return db;
 }
 
-async function autoImport(db) {
-  const count = await db.collection('products').countDocuments();
-  if (count === 0) {
-    // Collection khawya — import mn products.json
-    const products = PRODUCTS_DATA.map((p, i) => ({
-      ...p,
-      id: p.id || i + 1
-    }));
-    await db.collection('products').insertMany(products);
-    console.log(`✅ Auto-import: ${products.length} produits importés depuis products.json`);
-  }
-}
 
 exports.handler = async (event) => {
   const headers = {
@@ -41,7 +28,6 @@ exports.handler = async (event) => {
 
   try {
     const db = await getDB();
-    await autoImport(db); // Auto-import ila collection khawya
 
     const method = event.httpMethod;
     const adminPwd = event.headers['x-admin-password'];
